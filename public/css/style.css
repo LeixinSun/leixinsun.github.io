@@ -1,0 +1,80 @@
+/* Plain text page, in the spirit of the early web. */
+
+html, body { height: 100%; }
+
+body {
+  max-width: 46em;
+  margin: 0 auto;
+  padding: 2.5em 1em;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: "Source Serif 4", "Source Serif Pro",
+               "Noto Serif SC", "Source Han Serif SC", "Songti SC", SimSun,
+               Georgia, Times, serif;
+  font-size: 17px;
+  line-height: 1.6;
+  color: #000;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+a:link    { color: #0000ee; text-decoration: underline; }
+a:visited { color: #551a8b; }
+a:hover, a:focus { text-decoration: none; }
+
+h1 { font-size: 1.65em; margin: 0.2em 0 0.15em; line-height: 1.25; }
+h2 { font-size: 1.25em; margin: 1.8em 0 0.6em; }
+h3 { font-size: 1.08em; margin: 1.4em 0 0.5em; }
+
+p  { margin: 0 0 1em; }
+
+p.lede   { color: #444; margin-top: 0.4em; }
+p.meta   { color: #555; font-size: 0.95em; margin: 0.2em 0 1.6em; }
+p.crumbs { color: #555; font-size: 0.95em; margin: 0 0 0.5em; }
+p.foot   { color: #555; font-size: 0.9em; margin-top: auto; padding-top: 3em; }
+
+hr {
+  border: 0;
+  border-top: 1px solid #ccc;
+  margin: 1.8em 0;
+}
+
+/* Post list — definition list, classic and semantic. */
+dl.posts          { margin: 0; }
+dl.posts dt       { margin: 1.4em 0 0.15em; }
+dl.posts dd       { margin: 0 0 0.2em; color: #222; }
+dl.posts dd.date  {
+  color: #999;
+  font-size: 0.85em;
+  font-style: italic;
+  margin-bottom: 0.35em;
+}
+
+/* Content typography. */
+blockquote {
+  border-left: 3px solid #ccc;
+  margin: 1em 0;
+  padding: 0 0 0 1em;
+  color: #444;
+}
+
+code {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.95em;
+}
+
+pre {
+  background: #f6f6f6;
+  border: 1px solid #ddd;
+  padding: 0.6em 0.8em;
+  overflow-x: auto;
+  font-size: 0.92em;
+}
+
+pre code { font-size: 1em; }
+
+ul, ol { padding-left: 1.4em; }
+li     { margin: 0.2em 0; }
+
+img { max-width: 100%; }
