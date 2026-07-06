@@ -11,6 +11,7 @@ marked.setOptions({
 });
 
 const CONTENT_DIR = path.join(__dirname, 'content', 'posts');
+const PAGES_DIR = path.join(__dirname, 'content', 'pages');
 const TEMPLATES_DIR = path.join(__dirname, 'templates');
 const PUBLIC_DIR = path.join(__dirname, 'public');
 const DIST_DIR = path.join(__dirname, 'dist');
@@ -102,6 +103,7 @@ function build() {
 
   // 4. Gather and parse all markdown posts
   const markdownFiles = getFilesRecursively(CONTENT_DIR);
+  const pageFiles = getFilesRecursively(PAGES_DIR);
   const posts = [];
 
   console.log(`📝 Found ${markdownFiles.length} markdown articles to compile.`);
@@ -154,6 +156,36 @@ function build() {
     });
 
     console.log(`  └─ Compiled: posts/${category}/${slug}.html`);
+  }
+
+  console.log(`📄 Found ${pageFiles.length} standalone pages to compile.`);
+
+  for (const filePath of pageFiles) {
+    const slug = path.basename(filePath, '.md');
+    const fileContent = fs.readFileSync(filePath, 'utf-8');
+    const { data, content } = matter(fileContent);
+    const htmlContent = marked.parse(content);
+    const title = data.title || slug;
+    const displayDate = data.date ? formatChineseDate(data.date) : '2026年1月1日';
+    const rawDateString = data.date ? new Date(data.date).toISOString().split('T')[0] : '2026-01-01';
+    const description = data.description || '';
+    const readTime = calculateReadingTime(content);
+    const categoryLabel = data.category || 'Pages';
+
+    const compiledPage = postTemplate
+      .replace(/{{TITLE}}/g, title)
+      .replace(/{{DESCRIPTION}}/g, description)
+      .replace(/{{DATE}}/g, displayDate)
+      .replace(/{{DATETIME}}/g, rawDateString)
+      .replace(/{{READ_TIME}}/g, readTime)
+      .replace(/{{CATEGORY}}/g, categoryLabel)
+      .replace(/{{CONTENT}}/g, htmlContent);
+
+    const outputSubdir = path.join(DIST_DIR, slug);
+    fs.mkdirSync(outputSubdir, { recursive: true });
+    fs.writeFileSync(path.join(outputSubdir, 'index.html'), compiledPage, 'utf-8');
+
+    console.log(`  └─ Compiled: ${slug}/index.html`);
   }
 
   // 5. Generate Home page chronologically (Flat Plain Style)
