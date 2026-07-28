@@ -78,3 +78,66 @@ ul, ol { padding-left: 1.4em; }
 li     { margin: 0.2em 0; }
 
 img { max-width: 100%; }
+
+/* Lyrics read like a continuous page while staying in a compact scroll area. */
+.lyrics-song {
+  width: min(100%, 30rem);
+  margin: 2.5rem auto 3rem;
+}
+
+.lyrics-song h2 {
+  margin: 0 0 0.4rem;
+  text-align: center;
+}
+
+.lyrics-viewport {
+  box-sizing: border-box;
+  height: 30rem;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 5.5rem 1rem;
+  text-align: center;
+  line-height: 2;
+  letter-spacing: 0.025em;
+  scrollbar-width: none;
+  touch-action: pan-y;
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 18%,
+    #000 82%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to bottom,
+    transparent 0,
+    #000 18%,
+    #000 82%,
+    transparent 100%
+  );
+}
+
+.lyrics-viewport::-webkit-scrollbar {
+  display: none;
+}
+
+.lyrics-viewport p {
+  margin-bottom: 1.8rem;
+  white-space: pre-line;
+}
+
+.lyrics-viewport:focus-visible {
+  outline: 1px dotted #777;
+  outline-offset: 0.25rem;
+}
+
+@media (max-width: 32rem) {
+  .lyrics-song {
+    margin-top: 2rem;
+  }
+
+  .lyrics-viewport {
+    height: 24rem;
+    padding-inline: 0;
+  }
+}

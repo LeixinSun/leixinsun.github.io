@@ -54,6 +54,18 @@ function calculateReadingTime(text) {
   return minutes || 1;
 }
 
+function wrapLyricsSections(html) {
+  return html.replace(
+    /<h2>([\s\S]*?)<\/h2>\s*([\s\S]*?)(?=<h2>|$)/g,
+    (_, title, lyrics) => `<section class="lyrics-song">
+<h2>${title}</h2>
+<div class="lyrics-viewport" tabindex="0" aria-label="${title}歌词">
+${lyrics.trim()}
+</div>
+</section>`
+  );
+}
+
 // Find all files in a directory recursively
 function getFilesRecursively(dir, fileList = []) {
   if (!fs.existsSync(dir)) return fileList;
@@ -118,7 +130,10 @@ function build() {
     const { data, content } = matter(fileContent);
 
     // Render markdown to HTML
-    const htmlContent = marked.parse(content);
+    const renderedContent = marked.parse(content);
+    const htmlContent = data.layout === 'lyrics'
+      ? wrapLyricsSections(renderedContent)
+      : renderedContent;
 
     // Calculate metadata
     const title = data.title || 'Untitled Post';
