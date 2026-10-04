@@ -6,6 +6,50 @@ description: Share those heartbeating sometimes
 layout: lyrics
 ---
 
+## Chantelle Duncan《Forever》
+
+I've seen rivers rise
+seen mountains fall
+seen endless vistas coming to an end
+I've seen stars collide
+heard oceans roar
+I know what it means to lose your only friend
+
+nothing lasts forever
+that's what I've always heard
+all things good must end
+you know it's true
+nothing lasts forever
+but maybe some things do
+forever is the way I feel for you
+forever is the way I feel for you
+
+I've seen men take
+the world into their hands
+and change it, mold it, to their point of view
+I've felt the earth shake
+seen men take a stand
+and fight when it's the one thing left to do
+
+nothing lasts forever
+that's what I've always heard
+all things good must end
+you know it's true
+nothing lasts forever
+but maybe some things do
+forever is the way I feel for you
+forever is the way I feel for you
+
+nothing lasts forever
+that's what I've always heard
+all things good must end
+you know it's true
+nothing lasts forever
+but maybe some things do
+forever is the way I feel for you
+forever is the way I feel for you
+forever is the way I feel for you
+
 ## 五月天《倔强》
 
 当 我和世界不一样

@@ -81,7 +81,7 @@ img { max-width: 100%; }
 
 /* Lyrics read like a continuous page while staying in a compact scroll area. */
 .lyrics-song {
-  width: min(100%, 30rem);
+  width: min(100%, 36rem);
   margin: 2.5rem auto 3rem;
 }
 
@@ -90,12 +90,45 @@ img { max-width: 100%; }
   text-align: center;
 }
 
+/* Side bands belong to the lyric scroller; their rails appear while scrolling and shrink toward the middle. */
+.lyrics-frame {
+  --progress: 0;
+  --rail-min: 2.5rem;
+  position: relative;
+}
+
+.lyrics-rail {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 1px;
+  height: calc(var(--rail-min) + (100% - var(--rail-min)) * (1 - var(--progress)));
+  background: linear-gradient(
+    to bottom,
+    transparent 0,
+    #cfcfcf 25%,
+    #cfcfcf 75%,
+    transparent 100%
+  );
+  pointer-events: none;
+  opacity: 0;
+  transition: height 0.12s ease-out, opacity 0.4s ease;
+}
+
+.lyrics-frame.is-scrolling .lyrics-rail {
+  opacity: 1;
+  transition: height 0.12s ease-out, opacity 0.15s ease;
+}
+
+.lyrics-rail-left  { left: 0.75rem; }
+.lyrics-rail-right { right: 0.75rem; }
+
 .lyrics-viewport {
   box-sizing: border-box;
   height: 30rem;
   overflow-y: auto;
   overscroll-behavior: contain;
-  padding: 5.5rem 1rem;
+  padding: 5.5rem 3rem;
   text-align: center;
   line-height: 2;
   letter-spacing: 0.025em;
@@ -126,6 +159,11 @@ img { max-width: 100%; }
   white-space: pre-line;
 }
 
+@media (max-width: 32rem) {
+  .lyrics-rail-left  { left: 0.25rem; }
+  .lyrics-rail-right { right: 0.25rem; }
+}
+
 .lyrics-viewport:focus-visible {
   outline: 1px dotted #777;
   outline-offset: 0.25rem;
@@ -138,6 +176,6 @@ img { max-width: 100%; }
 
   .lyrics-viewport {
     height: 24rem;
-    padding-inline: 0;
+    padding-inline: 1.75rem;
   }
 }

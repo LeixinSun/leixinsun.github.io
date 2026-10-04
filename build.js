@@ -59,12 +59,38 @@ function wrapLyricsSections(html) {
     /<h2>([\s\S]*?)<\/h2>\s*([\s\S]*?)(?=<h2>|$)/g,
     (_, title, lyrics) => `<section class="lyrics-song">
 <h2>${title}</h2>
+<div class="lyrics-frame">
+<span class="lyrics-rail lyrics-rail-left" aria-hidden="true"></span>
+<span class="lyrics-rail lyrics-rail-right" aria-hidden="true"></span>
 <div class="lyrics-viewport" tabindex="0" aria-label="${title}歌词">
 ${lyrics.trim()}
 </div>
+</div>
 </section>`
-  );
+  ) + LYRICS_RAIL_SCRIPT;
 }
+
+// Shows the side rails while a lyric viewport scrolls and shrinks them toward its end.
+const LYRICS_RAIL_SCRIPT = `
+<script>
+document.querySelectorAll('.lyrics-frame').forEach((frame) => {
+  const viewport = frame.querySelector('.lyrics-viewport');
+  let hideTimer;
+  const update = () => {
+    const max = viewport.scrollHeight - viewport.clientHeight;
+    frame.style.setProperty('--progress', max > 0 ? viewport.scrollTop / max : 1);
+  };
+  viewport.addEventListener('scroll', () => {
+    update();
+    frame.classList.add('is-scrolling');
+    clearTimeout(hideTimer);
+    hideTimer = setTimeout(() => frame.classList.remove('is-scrolling'), 1000);
+  }, { passive: true });
+  window.addEventListener('resize', update);
+  if (document.fonts) document.fonts.ready.then(update);
+  update();
+});
+</script>`;
 
 // Find all files in a directory recursively
 function getFilesRecursively(dir, fileList = []) {
