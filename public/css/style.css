@@ -1,6 +1,7 @@
 /* Plain text page, in the spirit of the early web. */
 
 html, body { height: 100%; }
+html { overflow-x: clip; }
 
 body {
   max-width: 46em;
@@ -178,4 +179,31 @@ img { max-width: 100%; }
     height: 24rem;
     padding-inline: 1.75rem;
   }
+}
+
+/* Homepage backdrop: a transparent canvas behind the first screen whose edges dissolve into the page. */
+.wildline {
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: -1;
+  width: 100%;
+  height: 100vh;
+  height: 100svh;
+  pointer-events: none;
+  -webkit-mask-image:
+    linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 8%, #000 78%, transparent 100%);
+  -webkit-mask-composite: source-in;
+  mask-image:
+    linear-gradient(to right, transparent 0, #000 12%, #000 88%, transparent 100%),
+    linear-gradient(to bottom, transparent 0, #000 8%, #000 78%, transparent 100%);
+  mask-composite: intersect;
+}
+
+/* A white halo keeps text crisp where it crosses the vines. */
+body.home h1,
+body.home dl.posts,
+body.home p.foot {
+  text-shadow: 0 0 2px #fff, 0 0 6px #fff, 0 0 12px #fff;
 }
