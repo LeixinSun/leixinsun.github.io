@@ -227,14 +227,17 @@ figure.live {
   mask-composite: intersect;
 }
 
-/* With room to spare it sits at the right edge, halfway down the first screen. */
-@media (min-width: 56rem) and (min-height: 32rem) {
+/* When the margin beside the text column can hold it, it sits there, halfway down
+   the first screen; otherwise it stays in the flow so it never covers the text. */
+@media (min-width: 1200px) and (min-height: 32rem) {
   figure.live {
+    --gutter: calc((100vw - 46 * 17px) / 2);  /* the body's 46em column at 17px */
+    --size: min(16rem, calc(var(--gutter) - 3rem), 42svh);
     position: absolute;
     top: 50vh;
     top: 50svh;
-    right: max(3vw, 1.5rem);
-    width: min(16rem, 21vw, 42svh);
+    right: calc((var(--gutter) - var(--size)) / 2);
+    width: var(--size);
     margin: 0;
     transform: translateY(-50%);
   }
